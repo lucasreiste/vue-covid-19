@@ -1,10 +1,7 @@
 <template>
   <div class="container">
     <NavBar />
-    {{ loading }} --
-
-    <div v-if="loading">
-      <!-- {{ covid_data }} -->
+    <div v-if="!loading">
       <c-simple-grid
         class="teste"
         min-child-width="300px"
@@ -126,7 +123,7 @@
         </div>
       </c-simple-grid>
     </div>
-    <div v-else class="loading">
+    <div v-else>
       <div class="loader">
         <c-spinner
           thickness="4px"
@@ -214,9 +211,18 @@ export default {
   margin: 5rem;
 }
 .loader {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+  background: #ffffff;
+  color: #666666;
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  z-index: 5000;
+  top: 0;
+  left: 0;
+  float: left;
+  text-align: center;
+  padding-top: 25%;
+  opacity: .80;
 }
+
 </style>

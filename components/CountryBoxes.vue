@@ -144,7 +144,7 @@ export default {
     ...mapActions(['getCovidData']),
 
     getCountryISOCodeFlag (countryName) {
-      console.log(countryName)
+      // console.log(countryName)
       let isoCode = Object.keys(countryEnum).find(key => countryEnum[key] === countryName)
       if (isoCode) {
         isoCode = isoCode.toLowerCase()
