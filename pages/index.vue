@@ -123,16 +123,14 @@
         </div>
       </c-simple-grid>
     </div>
-    <div v-else>
-      <div class="loader">
-        <c-spinner
-          thickness="4px"
-          speed="0.65s"
-          empty-color="green.200"
-          color="vue.500"
-          size="xl"
-        />
-      </div>
+    <div v-else class="loader">
+      <c-spinner
+        thickness="4px"
+        speed="0.65s"
+        empty-color="green.200"
+        color="vue.500"
+        size="xl"
+      />.
     </div>
   </div>
 </template>
