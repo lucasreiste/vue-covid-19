@@ -1,23 +1,27 @@
 <template>
   <div class="container">
-    <!-- {{ covid_data }} -->
-    <c-simple-grid
-      class="teste"
-      min-child-width="300px"
-      spacing="20px"
+    <c-box ml="10" p="4">
+      <c-heading font-size="2xl">
+        Lista de Paises
+      </c-heading>
+    </c-box>
+    <c-grid
+      template-columns="repeat(auto-fit, 20rem)"
+      gap="6"
+      justify-content="center"
     >
       <div
-        v-for="(country_size, i) in country_size"
-        :key="country_size"
+        v-for="(sizeCountries, i) in sizeCountries"
+        :key="sizeCountries"
       >
         <c-box
-          v-if="covid_data[i].cases"
+          v-if="filteredCountries[i].cases"
           border-width="1px"
           rounded="lg"
           overflow="hidden"
         >
           <c-image
-            :src="getCountryISOCodeFlag(covid_data[i].country_name)"
+            :src="getCountryISOCodeFlag(filteredCountries[i].country_name)"
           />
           <c-box p="5">
             <c-box
@@ -28,7 +32,7 @@
                 Casos de COVID-19:
               </c-badge>
               <c-badge rounded="full" px="2" variant-color="red">
-                {{ covid_data[i].cases || 'Olá' }}
+                {{ filteredCountries[i].cases || 'Não Disponível' }}
               </c-badge>
             </c-box>
             <c-box
@@ -40,7 +44,7 @@
               is-truncated
             >
               <c-text font-size="xl">
-                {{ covid_data[i].country_name }}
+                {{ filteredCountries[i].country_name }}
               </c-text>
             </c-box>
             <c-divider />
@@ -61,7 +65,7 @@
 
               <div>
                 <c-badge rounded="full" px="2" variant-color="red">
-                  {{ covid_data[i].deaths }}
+                  {{ filteredCountries[i].deaths }}
                 </c-badge>
               </div>
 
@@ -72,7 +76,7 @@
               </div>
               <div>
                 <c-badge rounded="full" px="2" variant-color="green">
-                  {{ covid_data[i].total_recovered }}
+                  {{ filteredCountries[i].total_recovered }}
                 </c-badge>
               </div>
               <div>
@@ -82,7 +86,7 @@
               </div>
               <div>
                 <c-badge rounded="full" px="2" variant-color="red">
-                  {{ covid_data[i].new_cases }} / Dia
+                  {{ filteredCountries[i].new_cases }} / Dia
                 </c-badge>
               </div>
               <div>
@@ -93,7 +97,7 @@
 
               <div>
                 <c-badge rounded="full" px="2" variant-color="red">
-                  {{ covid_data[i].total_cases_per_1m_population }}
+                  {{ filteredCountries[i].total_cases_per_1m_population }}
                 </c-badge>
               </div>
               <div>
@@ -103,7 +107,7 @@
               </div>
               <div>
                 <c-badge rounded="full" px="2" variant-color="green">
-                  {{ covid_data[i].total_tests }}
+                  {{ filteredCountries[i].total_tests }}
                 </c-badge>
               </div>
               <div>
@@ -113,14 +117,14 @@
               </div>
               <div>
                 <c-badge rounded="full" px="2" variant-color="green">
-                  {{ covid_data[i].tests_per_1m_population }}
+                  {{ filteredCountries[i].tests_per_1m_population }}
                 </c-badge>
               </div>
             </c-box>
           </c-box>
         </c-box>
       </div>
-    </c-simple-grid>
+    </c-grid>
   </div>
 </template>
 
@@ -129,13 +133,19 @@ import { mapState, mapActions } from 'vuex'
 import countryEnum from '../src/countryEnum'
 
 export default {
-  name: 'App',
-  data () {
-    return {
-    }
-  },
+  name: 'CountryBoxes',
   computed: {
-    ...mapState(['covid_data', 'country_size', 'property'])
+    ...mapState(['covid_data', 'property', 'filtered_countries']),
+
+    filteredCountries () {
+      if (this.filtered_countries.length > 0) {
+        return this.filtered_countries
+      }
+      return this.covid_data
+    },
+    sizeCountries () {
+      return this.filteredCountries.length
+    }
   },
   beforeMount () {
     this.getCovidData()
@@ -144,21 +154,15 @@ export default {
     ...mapActions(['getCovidData']),
 
     getCountryISOCodeFlag (countryName) {
-      // console.log(countryName)
       let isoCode = Object.keys(countryEnum).find(key => countryEnum[key] === countryName)
       if (isoCode) {
         isoCode = isoCode.toLowerCase()
         return require('../static/flags/' + isoCode + '.png')
       } else {
-        return require('../static/flags/br.png')
+        return require('../static/flags/indisponivel.png')
       }
     }
 
   }
 }
 </script>
-<style>
-.teste {
-  margin: 5rem;
-}
-</style>
