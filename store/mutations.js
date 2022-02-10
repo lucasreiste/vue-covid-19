@@ -4,6 +4,9 @@ const mutations = {
   },
   SET_LOADING (state, data) {
     state.loading = data
+  },
+  SET_FILTERED_SEARCH (state, data) {
+    state.filtered_countries = data
   }
 }
 export default mutations
