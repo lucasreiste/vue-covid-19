@@ -15,7 +15,7 @@
         :key="sizeCountries"
       >
         <c-box
-          v-if="filteredCountries[i].cases"
+          v-show="filteredCountries[i].cases"
           border-width="1px"
           rounded="lg"
           overflow="hidden"

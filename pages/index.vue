@@ -31,21 +31,19 @@
         </c-box>
       </c-box>
     </c-flex>
-    <div class="container">
-      <body v-show="!loading">
-        <CountryBoxes />
-      </body>
-
-      <c-flex v-if="loading" width="full" text-align="center" justify-content="center" class="loader">
-        <c-spinner
-          thickness="4px"
-          speed="0.65s"
-          empty-color="green.200"
-          color="vue.500"
-          size="xl"
-        />.
-      </c-flex>
+    <div v-show="!loading">
+      <CountryBoxes />
     </div>
+
+    <c-flex v-show="loading" width="full" text-align="center" justify-content="center" class="loader">
+      <c-spinner
+        thickness="4px"
+        speed="0.65s"
+        empty-color="green.200"
+        color="vue.500"
+        size="xl"
+      />.
+    </c-flex>
   </div>
 </template>
 
@@ -89,5 +87,4 @@ export default {
   padding-top: 25%;
   opacity: .80;
 }
-
 </style>
