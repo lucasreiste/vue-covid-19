@@ -12,7 +12,7 @@
     Informações sobre a situação da COVID-19 em todo o mundo!
     <br />
     <br />
-    <a href="https://epic-feynman-a4038c.netlify.app/">Acessar o site</a>
+    <a href="https://rainbow-cactus-24d887.netlify.app/">Acessar o site</a>
     ·
     <a href="https://github.com/lucasreiste/vue-covid-19/issues">Comunicar um bug</a>
     ·
