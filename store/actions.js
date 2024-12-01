@@ -8,6 +8,9 @@ const actions = {
       commit('SET_LOADING', true)
       const data = await this.$axios.$get('https://corona-virus-world-and-india-data.p.rapidapi.com/api')
       commit('SET_COVID_DATA', data.countries_stat)
+
+      // Workaround, as the API is outdated (doesn't exist anymore)
+      commit('SET_COVID_DATA', apiMock.countries_stat)
     } catch (err) {
       commit('SET_COVID_DATA', apiMock.countries_stat)
     }
